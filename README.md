@@ -1,7 +1,7 @@
 
 # LearningR: Practicing awesomeness :D
 
-TODO: Give a brief description of what your project is about
+This is for the DDA R course. YAYYYY
 
 This project is the first proper setup of a folder for data management
 
