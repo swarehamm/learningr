@@ -1,5 +1,5 @@
 
-# LearningR: Practicing awesomeness :D
+# LearningR: Practicing boringness...
 
 This is for the DDA R course. YAYYYY
 
@@ -7,7 +7,6 @@ This project is the first proper setup of a folder for data management
 
 # Brief description of folder and file contents
 
-TODO: As project evolves, add brief description of what is inside the data, doc and R folders.
 
 The following folders contain:
 
