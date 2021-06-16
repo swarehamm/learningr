@@ -72,7 +72,6 @@ nhanes_small
 
 # without the pipe operator
 colnames(nhanes_small)
-
 nhanes_small %>% colnames()
 
 nhanes_small %>%
@@ -87,3 +86,71 @@ nhanes_small %>% rename(diabetes_diagnosis_age = diabetes_age)
 nhanes_small %>% select(bmi, contains("age"))
 
 nhanes_small %>% select(phys_active_days, phys_active) %>% rename(days_phys_active = phys_active_days)
+
+
+#Filtering
+#participants who are female
+nhanes_small %>%
+    filter(sex == "female")
+#participants who are not female
+nhanes_small %>%
+    filter(sex !=="female")
+#Participants who have a BMI equal to 25
+nhanes_small %>%
+    filter(bmi == 25)
+
+#Participants who have a BMI greater than and equal to 25
+nhanes_small %>%
+    filter(bmi >= 25)
+
+nhanes_small %>%
+    filter(bmi > 25 & sex == "female")
+nhanes_small %>%
+    filter(bmi> 25 | sex == "female")
+
+##Arranging data
+#arrange by age
+nhanes_small %>%
+    arrange(age)
+#arrange by sex in ascending order
+nhanes_small %>%
+    arrange(sex)
+#arrange by sex in descending order
+nhanes_small %>%
+    arrange(desc(age))
+#arrange by sex and then by age
+nhanes_small %>%
+    arrange(sex, age)
+
+##Transform data
+#transform height values to meters
+nhanes_small %>%
+    mutate(height = height/100)
+
+#add a new column with logged height values
+nhanes_small %>%
+    mutate(logged_height = log(height))
+nhanes_small %>%
+    mutate(height = height/100,
+           logged_height = log(height))
+#new column based on how active people are
+nhanes_small %>%
+    mutate(highly_active = if_else(phys_active_days >= 5, "Yes", "No"))
+
+nhanes_update <- nhanes_small %>%
+    mutate(height = height/100,
+           logged_height = log(height),
+           highly_active = if_else(phys_active_days >= 5, "Yes", "No"))
+
+##Summary statistics by group
+nhanes_small %>%
+    summarise(max_bmi = max(bmi))
+nhanes_small %>%
+    summarise(max:bmi = max(bmi, na.rm = TRUE))
+
+nhanes_small %>%
+    summarise(sum_na = sum(isn.na(bmi)))
+#calculating two summary statistics
+nhanes_small %>%
+    summarise(max_bmi = max(bmi, na.rm = TRUE),
+              min_bmi = min(bmi, na.rm = TRUE))
