@@ -73,5 +73,83 @@ two_mixed +
 two_mixed +
     geom_violin()
 ```
+# Exercises to make plots with one or two variables
+
+```{r Exercises}
+# 1a. Distribution of age
+ggplot(nhanes_tidied, aes(x = age)) +
+    geom_histogram()
+    
+# 1b. Distribution of age of diabetes diagnosis
+ggplot(nhanes_tidied, aes(x = diabetes_age)) +
+    geom_histogram()
+
+# 2a. Number of people who smoke now
+ggplot(nhanes_tidied, aes(x = smoke_now)) +
+    geom_bar()
+
+# 2b. Number of people who are physically active
+ggplot(nhanes_tidied, aes(x = phys_active)) +
+    geom_bar()
+
+# 3a. BMI in relation to systolic blood pressure
+ggplot(nhanes_tidied, aes(x = bp_sys_ave, y = bmi)) +
+    geom_hex()
+
+# 3b. BMI relation to diastolic blood pressure
+ggplot(nhanes_tidied, aes(x = bp_dia_ave, y = bmi)) +
+    geom_hex()
+    
+# 4. Physically active people with or without diabetes
+ggplot(nhanes_tidied, aes(x = diabetes, fill = phys_active)) +
+    geom_bar(position = position_dodge())
+
+# 5. Poverty levels between those with or without diabetes
+ggplot(nhanes_tidied, aes(x = diabetes, y = poverty)) +
+    geom_violin()
+
+
+nhanes_small %>% 
+    drop_na(diabetes) %>% 
+    ggplot(aes(x=diabetes)) +
+    geom_bar()
+```
+
+# Plotting three or more variables
+
+```{r using-colour}
+# 1 continuous and 2 discrete variables
+nhanes_tidied %>% 
+    ggplot(aes(x=sex, y= bp_sys_ave, colour=diabetes)) +
+    geom_boxplot()
+
+# 3 continuous variables
+nhanes_tidied %>% 
+    ggplot(aes(x=bmi, y=bp_sys_ave, colour=age))+
+    geom_point()
+
+# 2 continuous and 1 discrete
+nhanes_tidied %>% 
+    ggplot(aes(x=bmi, y=bp_sys_ave, colour=diabetes))+
+    geom_point()
+
+#facet by columns
+nhanes_tidied %>% 
+    ggplot(aes(x=bmi, y=bp_sys_ave, colour=diabetes))+
+    geom_point()+
+    facet_grid(cols=vars(diabetes))
+
+#facet by rows
+nhanes_tidied %>% 
+    ggplot(aes(x=bmi, y=bp_sys_ave, colour=diabetes))+
+    geom_point()+
+    facet_grid(rows=vars(diabetes))
+# 5 variables
+nhanes_tidied %>% 
+    ggplot(aes(x=bmi, y=bp_sys_ave, colour=age))+
+    geom_point()+
+    facet_grid(rows=vars(diabetes),
+               cols=vars(sex))
 
 ```
+
